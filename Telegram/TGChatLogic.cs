@@ -44,8 +44,12 @@ public class TGChatLogic
         string lang,
         long creator)
     {
-        var ubUser = _ubUserLogic.AddIfNoneFound(new UBUser {TelegramId = creator});
-        if (ubUser.StatusCode != 0)
+        var ubUser = _ubUserLogic.AddIfNoneFound(new UBUser
+        {
+            TelegramId = creator,
+            State = Enums.UserStates.Active
+        });
+        if (ubUser.StatusCode != 200)
         {
             return new Response<TGChat>()
             {
@@ -55,7 +59,7 @@ public class TGChatLogic
         }
 
         var ubChat = _ubChatLogic.Add();
-        if (ubChat.StatusCode != 0)
+        if (ubChat.StatusCode != 200)
         {
             return new Response<TGChat>()
             {
@@ -92,7 +96,7 @@ public class TGChatLogic
             UserLevel = Enums.UserLevels.Owner,
             StaffType = Enums.StaffTypes.Platform
         });
-        if (chatMember.StatusCode != 0)
+        if (chatMember.StatusCode != 200)
         {
             // TODO - Log error
         }
