@@ -106,17 +106,22 @@ public class ConfigurationParameterLogic
     public Response<List<ConfigurationParameter>> GetByPlatform(string platform)
     {
         using var ubc = new UBContext();
-        var chats = ubc.ConfigurationParameters
+        var configs = ubc.ConfigurationParameters
             .AsNoTracking()
-            .Where(x => x.Platforms.Contains(platform))
+            .ToList()
+            .Where(x => ContainsPlatform(x.Platforms, platform))
             .ToList();
 
         return new Response<List<ConfigurationParameter>>()
         {
             StatusCode = 200,
             StatusDescription = "OK",
-            Payload = chats,
-            PayloadRaw = chats
+            Payload = configs
         };
+    }
+
+    private bool ContainsPlatform(IEnumerable<string> source, string platform)
+    {
+        return source.Contains(platform);
     }
 }

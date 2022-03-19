@@ -67,10 +67,6 @@ public class TGChatLogic
                 StatusDescription = $"Error creating UBChat: {ubChat.StatusDescription}"
             };
         }
-
-        var jsonConfig = JsonConvert.SerializeObject(_configurationParameterLogic.Get());
-            
-        // TODO - check if language exists and fallback to first half id contains - or to English as global default
             
         var tgChat = Add(new TGChat
         {
@@ -82,7 +78,7 @@ public class TGChatLogic
             WelcomeText = string.Empty,
             RulesText = string.Empty,
             SettingsLanguage = lang,
-            Configuration = jsonConfig,
+            Configuration = _configurationParameterLogic.GetByPlatform("telegram").Payload,
             CommandPrefix = "/",
             ReportChatId = reportChatId,
             EnabledCommandsType = Enums.EnabledCommandsTypes.All,
