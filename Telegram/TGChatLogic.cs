@@ -42,7 +42,8 @@ public class TGChatLogic
         string title,
         long reportChatId,
         string lang,
-        long creator)
+        long creator,
+        string? lastVersion = null)
     {
         var ubUser = _ubUserLogic.AddIfNoneFound(new UBUser
         {
@@ -82,7 +83,8 @@ public class TGChatLogic
             CommandPrefix = "/",
             ReportChatId = reportChatId,
             EnabledCommandsType = Enums.EnabledCommandsTypes.All,
-            DisabledCommands = new []{"rules"}
+            DisabledCommands = new []{"rules"},
+            LastVersion = lastVersion ?? string.Empty
         });
 
         var chatMember = _tgChatMemberLogic.Add(new TGChatMember
