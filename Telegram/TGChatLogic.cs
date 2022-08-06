@@ -183,6 +183,7 @@ public class TGChatLogic
             exists.SettingsLanguage = tgChat.SettingsLanguage;
             exists.CommandPrefix = tgChat.CommandPrefix;
             exists.ReportChatId = tgChat.ReportChatId;
+            exists.Status = tgChat.Status;
 
             ubc.SaveChanges();
             return new Response<TGChat>()
