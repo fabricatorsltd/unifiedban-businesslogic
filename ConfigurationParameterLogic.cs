@@ -108,7 +108,6 @@ public class ConfigurationParameterLogic
         using var ubc = new UBContext();
         var configs = ubc.ConfigurationParameters
             .AsNoTracking()
-            .ToList()
             .Where(x => ContainsPlatform(x.Platforms, platform))
             .ToList();
 
