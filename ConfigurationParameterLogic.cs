@@ -106,8 +106,10 @@ public class ConfigurationParameterLogic
     public Response<List<ConfigurationParameter>> GetByPlatform(string platform)
     {
         using var ubc = new UBContext();
+        // double ToList() required to execute ContainsPlatform since Linq can't execute it
         var configs = ubc.ConfigurationParameters
             .AsNoTracking()
+            .ToList()
             .Where(x => ContainsPlatform(x.Platforms, platform))
             .ToList();
 
