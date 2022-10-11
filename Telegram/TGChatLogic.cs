@@ -208,7 +208,9 @@ public class TGChatLogic
     {
         using var ubc = new UBContext();
         var tgChats = ubc.TGChats
-            .AsNoTracking().ToList();
+            .AsNoTracking()
+            .Include(x => x.Chat)
+            .ToList();
 
         return new Response<List<TGChat>>()
         {
